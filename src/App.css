@@ -40,6 +40,8 @@
 .App
 {
   text-align:center;
+  display:flex;
+  width:10px;
 }
 .profile-pic
 {
@@ -48,7 +50,9 @@
   object-fit:cover;
   border-radius:50%;
   transition:0.2s;
+  padding:5px;
+  display:flex;
 }
 .profile-pic:hover{
-  transform:scale(1,1);
+  transform:scale(1:10);
 }
