@@ -1,22 +1,26 @@
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 import "./App.css";
 
+import { Movie } from "./Movie";
+import { Counter } from "./Counter";
+import { AddColor } from "./AddColor";
 import { useState } from "react";
 
 
 
 export function App()
  {
- const student=[
-     {
-     name:"Rhagavi",
-     pic:"https://media.istockphoto.com/photos/profile-portr…=0&h=bOle9KnZYM0jSPTLZBaYUIXAYyd5ejl8rzmKd1i_hL8="
-     }
- ];
+//  const student=[
+//      {
+//      name:"Rhagavi",
+//      pic:"https://media.istockphoto.com/photos/profile-portr…=0&h=bOle9KnZYM0jSPTLZBaYUIXAYyd5ejl8rzmKd1i_hL8="
+//      }
+//  ];
 
- const movieList=
+ const INITIAL_MOVIE_LIST=
  [
     {
+        id:"100",
     name: "RRR",
     poster:
     "https://englishtribuneimages.blob.core.windows.net/gallary-content/2021/6/Desk/2021_6$largeimg_977224513.JPG",
@@ -26,6 +30,7 @@ export function App()
     
     },
     {
+        id:"101",
     name: "Iron man 2",
     poster:
     "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
@@ -35,15 +40,17 @@ export function App()
     
     },
     {
+        id:"102",
     name: "No Country for Old Men",
     poster:
     "https://upload.wikimedia.org/wikipedia/en/8/8b/No_Country_for_Old_Men_poster.jpg",
     rating: 8.1,
     summary:
     "A hunter's life takes a drastic turn when he discovers two million dollars while strolling through the aftermath of a drug deal. He is then pursued by a psychopathic killer who wants the money.",
-    
+     
     },
     {
+        id:"103 ",
     name: "Jai Bhim",
     poster:
     "https://m.media-amazon.com/images/M/MV5BY2Y5ZWMwZDgtZDQxYy00Mjk0LThhY2YtMmU1MTRmMjVhMjRiXkEyXkFqcGdeQXVyMTI1NDEyNTM5._V1_FMjpg_UX1000_.jpg",
@@ -89,57 +96,23 @@ export function App()
     ];
 
 
- 
+
+    const [movieList,setMovieList]=useState(INITIAL_MOVIE_LIST) ; 
 
  return(
      <div className='App'>
 
-{
-movieList.map((mv)=>(
-    <Movie movie={mv}
-/>))
-}
 
 <Movie/>
   <Counter/>
-     </div>
- );
- }
- //hook-make hook listen to the change.
- //hook-function
- // start with the word called use
- //setState is again a func-to change.To upgrade the state.
- //informing react that state is changed.
+  <AddColor/>
+  <MovieList movieList={movieList}setMovieList={setMovieList}/>
 
- //useState-informing react that state is changed.
- //state-currentValue 
-
-
-function Counter()
-{
-    
-const [like,setLike]=useState(0);
-const [dislike,setDisLike]=useState(0);
-//state-current scenario
-
-    //onClick-Camel Case
-    return(
-        <div className='counters-container'>
-           <button className='like-button' onClick={()=>setLike(like+1)
-               
-           }>
-               {like}👍
-           </button> 
-            
-            <button className='dislike-button' onClick={()=>setDisLike(dislike+1)}>
-                {dislike}👎
-                </button>    
-               </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  </div>
  
-
-    );
-}
-
+ ); 
+ 
+ }
 function Message({pic,name})
 {
     return(
@@ -148,27 +121,58 @@ function Message({pic,name})
             <h1>Hello , {name} you are 25 years old❤{pic}</h1>
             <Counter/>
         </div>
-    );
+    );1
 }
 
+function MovieList({movieList,setMovieList})
+    {
+      
+      
+      const[name,setName] = useState("");
+
+        
+      const[rating,setRating] = useState("");
+        
+      const[poster,setPoster] = useState("");
+        
+      const[summary,setSummary] = useState("");
+
+      
+           return(
+         <div>
+             <div className="add-movie-form">
+
+           <input placeholder="Name"   onChange={(event) => setName(event.target.value)}/>
+           <input placeholder="Rating" onChange={(event)=>setRating(event.target.value)}/>
+           <input placeholder="Poster" onChange={(event)=>setPoster(event.target.value)}/>
+           <input placeholder="Summary" onChange={(event)=>setSummary(event.target.value)}/>
+
+         
+
+        <button onClick={()=>{
+        const newMovie=
+        {
+            name:{name},
+            rating:{rating},
+            poster:{poster},
+            summary:{summary},
+        };
+        setMovieList([...movieList,newMovie])
+        console.log(newMovie);
+        }}>Add Movie</button>
+       </div>
 
 
-function Movie({movie})
-{
-    
-  return(
-        <div className='movie-container'>
-      <img src={movie.poster} alt={movie.name} className="movie-poster"/>
+       <div className="movielist">
+       {
+       movieList.map((mv,index)=>(
+           <Movie key={index} movie={mv}
+       />))
+       }
+       </div>
+       </div>
+       )
+    }
 
-         <div className='movie-specs'>
-         <h2 className='movie-name'>{movie.name}</h2>
-         <p className='movie-rating'>⭐{movie.rating}</p>
-         </div>
 
-        <p className='movie-summary'>{movie.summary}</p>
-        </div>
-    );
-    
-}
-
-export default App;
+export default App;                                                                                                                                                                                                  
