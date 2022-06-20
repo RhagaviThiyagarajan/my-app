@@ -2,7 +2,7 @@
 
 
 export function ColorBox({ color }) {
-    const styles = {
+    const style = {
         backgroundColor: "color",
         height: "25px",
         width: "250px",
